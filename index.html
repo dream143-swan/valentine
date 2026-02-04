@@ -12,11 +12,10 @@
       background: url("bg.jpg") center/cover no-repeat fixed;
       min-height: 100vh;
       overflow-x: hidden;
-      color: #333;
     }
 
     .overlay {
-      background: rgba(255, 214, 232, 0.85);
+      background: rgba(255, 214, 232, 0.88);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -35,7 +34,7 @@
       animation: fadeIn 0.8s ease;
     }
 
-    h1, h2 {
+    h1, h2, h3 {
       margin-top: 0;
     }
 
@@ -73,11 +72,13 @@
       display: none;
     }
 
+    /* Floating hearts */
     .heart {
       position: fixed;
       bottom: -30px;
       font-size: 20px;
       animation: floatUp 6s linear forwards;
+      z-index: 1;
     }
 
     @keyframes floatUp {
@@ -91,9 +92,75 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Tap to view */
+    .photo-wrap {
+      position: relative;
+    }
+
+    .photo-wrap span {
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      background: rgba(255, 111, 174, 0.9);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    /* Fullscreen viewer */
+    .viewer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .viewer img {
+      max-width: 90%;
+      max-height: 70%;
+      border-radius: 20px;
+    }
+
+    .viewer p {
+      color: white;
+      margin-top: 15px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    /* Sound gate */
+    #soundGate {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
   </style>
 </head>
+
 <body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SOUND ENABLE -->
+<div id="soundGate">
+  <p style="font-size:20px;">🎶 Before we begin…</p>
+  <button onclick="enableSound()">Tap to enable sound 💗</button>
+</div>
 
 <!-- PASSWORD PAGE -->
 <div class="overlay" id="page0">
@@ -124,10 +191,17 @@
   <div class="card">
     <h3>This is us 💖</h3>
 
-    <img src="photo1.jpg" onclick="showMsg(1)">
-    <img src="photo2.jpg" onclick="showMsg(2)">
+    <div class="photo-wrap"
+      onclick="openViewer('photo1.jpg','This moment stays with me longer than you know 🥺💗')">
+      <img src="photo1.jpg">
+      <span>Tap to view 💗</span>
+    </div>
 
-    <p id="photoMsg" style="margin-top:15px;"></p>
+    <div class="photo-wrap"
+      onclick="openViewer('photo2.jpg','Every picture with you feels like a promise 🦢✨')">
+      <img src="photo2.jpg">
+      <span>Tap to view 💗</span>
+    </div>
 
     <button onclick="next(2)">Next 🦢</button>
   </div>
@@ -145,31 +219,38 @@
 </div>
 
 <script>
-  function unlock() {
-  const pass = document.getElementById("password").value;
-  if (pass === "my🦢143") {
-    document.getElementById("page0").classList.add("hidden");
-    document.getElementById("page1").classList.remove("hidden");
-
+  function enableSound() {
     const music = document.getElementById("bgMusic");
     music.volume = 0.4;
-    music.play();
-  } else {
-    alert("That’s not the magic word 💔");
+    music.play().catch(() => {});
+    document.getElementById("soundGate").style.display = "none";
   }
-}
+
+  function unlock() {
+    const pass = document.getElementById("password").value;
+    if (pass === "my🦢143") {
+      document.getElementById("page0").classList.add("hidden");
+      document.getElementById("page1").classList.remove("hidden");
+    } else {
+      alert("That’s not the magic word 💔");
+    }
+  }
 
   function next(n) {
     document.getElementById("page" + n).classList.add("hidden");
     document.getElementById("page" + (n + 1)).classList.remove("hidden");
   }
 
-  function showMsg(n) {
-    const msg = document.getElementById("photoMsg");
-    msg.innerHTML =
-      n === 1
-        ? "This moment stays with me longer than you know 🥺💗"
-        : "Every picture with you feels like a promise 🦢✨";
+  function openViewer(src, text) {
+    const viewer = document.createElement("div");
+    viewer.className = "viewer";
+    viewer.innerHTML = `
+      <img src="${src}">
+      <p>${text}</p>
+      <p style="font-size:14px;opacity:0.7">(tap anywhere to close)</p>
+    `;
+    viewer.onclick = () => viewer.remove();
+    document.body.appendChild(viewer);
   }
 
   function runAway() {
@@ -198,7 +279,7 @@
     heart.style.left = Math.random() * 100 + "vw";
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
-  }, 800);
+  }, 900);
 </script>
 
 </body>
