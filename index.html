@@ -19,7 +19,6 @@ body {
 .page {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -30,15 +29,15 @@ body {
   display: none;
 }
 
-/* BACKGROUND V PAGE */
+/* PAGE 0 – COQUETTE V */
 .v-bg {
-  background: radial-gradient(circle, #ffd6e8 60%, #f5a6c6);
+  background: radial-gradient(circle, #ffd6e8 60%, #f3a6c8);
 }
 
 .v-letter {
-  font-size: 200px;
+  font-size: 220px;
   font-weight: bold;
-  color: #000;
+  color: black;
   position: relative;
 }
 
@@ -49,7 +48,7 @@ body {
   font-size: 40px;
 }
 
-/* CARD STYLE */
+/* CARD */
 .card {
   background: rgba(255, 214, 232, 0.85);
   padding: 30px;
@@ -61,7 +60,7 @@ body {
 /* BUTTONS */
 button {
   margin-top: 20px;
-  padding: 12px 25px;
+  padding: 12px 28px;
   border-radius: 30px;
   border: none;
   font-size: 16px;
@@ -74,7 +73,7 @@ button:hover {
   background: #ff4f91;
 }
 
-/* IMAGES */
+/* PHOTOS */
 .photos img {
   width: 150px;
   border-radius: 15px;
@@ -100,20 +99,53 @@ button:hover {
 /* HEARTS */
 .heart {
   position: fixed;
-  color: pink;
   font-size: 24px;
   animation: float 2s ease-out forwards;
 }
 
 @keyframes float {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-200px);
-  }
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-200px); }
+}
+
+/* LETTER BUTTON */
+.letter-btn {
+  font-size: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* LETTER IMAGE */
+.letter {
+  width: 220px;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 1.5s ease;
+}
+
+.show-letter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* GIF */
+.gif {
+  width: 260px;
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.show-gif {
+  opacity: 1;
 }
 </style>
 </head>
@@ -124,15 +156,14 @@ button:hover {
 
 <!-- PAGE 0 : PASSWORD -->
 <div class="page v-bg" id="page0">
-  <div class="v-letter">
-    V
-    <div class="bow">🎀</div>
-  </div>
-  <div class="card">
-    <p>Enter the magic word 💗</p>
-    <input id="password" type="password" placeholder="magic word">
-    <br>
-    <button onclick="unlock()">Unlock 💞</button>
+  <div>
+    <div class="v-letter">V<div class="bow">🎀</div></div>
+    <div class="card">
+      <p>Enter the magic word 💗</p>
+      <input id="password" type="password" placeholder="magic word">
+      <br>
+      <button onclick="unlock()">Unlock 💞</button>
+    </div>
   </div>
 </div>
 
@@ -176,15 +207,29 @@ button:hover {
   </div>
 </div>
 
+<!-- PAGE 4 -->
+<div class="page hidden" id="page4">
+  <div class="card">
+    <h1>One Year of Togetherness 💖</h1>
+    <p>
+      One year of laughter, comfort,  
+      and choosing each other 🦢
+    </p>
+
+    <button class="letter-btn" onclick="openLetter()">✉️</button>
+
+    <img id="letterImg" src="Letter.jpg" class="letter hidden">
+    <img id="finalGif" src="anniversary.gif" class="gif hidden">
+  </div>
+</div>
+
 <script>
 function unlock() {
   const pass = document.getElementById("password").value;
   if (pass === "my🦢143") {
     document.getElementById("page0").classList.add("hidden");
     document.getElementById("page1").classList.remove("hidden");
-
-    const music = document.getElementById("music");
-    music.play();
+    document.getElementById("music").play();
   } else {
     alert("That’s not the magic word 💔");
   }
@@ -217,11 +262,26 @@ function yesClick() {
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.top = "100vh";
     document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 2000);
+    setTimeout(() => heart.remove(), 2000);
   }
+
+  setTimeout(() => {
+    document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+    document.getElementById("page4").classList.remove("hidden");
+  }, 1000);
+}
+
+function openLetter() {
+  const letter = document.getElementById("letterImg");
+  const gif = document.getElementById("finalGif");
+
+  letter.classList.remove("hidden");
+  letter.classList.add("show-letter");
+
+  setTimeout(() => {
+    gif.classList.remove("hidden");
+    gif.classList.add("show-gif");
+  }, 1500);
 }
 </script>
 
