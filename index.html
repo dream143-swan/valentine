@@ -55,6 +55,7 @@ body {
   border-radius: 20px;
   max-width: 500px;
   color: #333;
+  position: relative; /* for letter/gif positioning */
 }
 
 /* BUTTONS */
@@ -125,23 +126,30 @@ button:hover {
 /* LETTER IMAGE */
 .letter {
   width: 220px;
-  margin-top: 20px;
   opacity: 0;
   transform: translateY(60px);
-  transition: all 1.5s ease;
+  transition: all 1.8s ease;
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  display: block;
+}
+
+/* GIF at bottom of card */
+.gif {
+  width: 260px;
+  opacity: 0;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 2s ease;
+  z-index: 1;
 }
 
 .show-letter {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* GIF */
-.gif {
-  width: 260px;
-  margin-top: 20px;
-  opacity: 0;
-  transition: opacity 2s ease;
 }
 
 .show-gif {
@@ -171,10 +179,7 @@ button:hover {
 <div class="page hidden" id="page1">
   <div class="card">
     <h1>Dear Vikash 🦢</h1>
-    <p>
-      This isn’t just a page.  
-      It’s a little piece of what you make me feel.
-    </p>
+    <p>This isn’t just a page.<br>It’s a little piece of what you make me feel.</p>
     <button onclick="nextPage(2)">Next →</button>
   </div>
 </div>
@@ -209,12 +214,9 @@ button:hover {
 
 <!-- PAGE 4 -->
 <div class="page hidden" id="page4">
-  <div class="card">
+  <div class="card" style="position: relative;">
     <h1>One Year of Togetherness 💖</h1>
-    <p>
-      One year of laughter, comfort,  
-      and choosing each other 🦢
-    </p>
+    <p>One year of laughter, comfort, and choosing each other 🦢</p>
 
     <button class="letter-btn" onclick="openLetter()">✉️</button>
 
@@ -278,10 +280,11 @@ function openLetter() {
   letter.classList.remove("hidden");
   letter.classList.add("show-letter");
 
+  // GIF appears AFTER letter finishes rising
   setTimeout(() => {
     gif.classList.remove("hidden");
     gif.classList.add("show-gif");
-  }, 1500);
+  }, 1800);
 }
 </script>
 
