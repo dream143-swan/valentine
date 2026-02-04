@@ -5,10 +5,7 @@
 <title>For Vikash 🦢</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: "Georgia", serif;
-}
+* { box-sizing: border-box; font-family: "Georgia", serif; }
 
 body {
   margin: 0;
@@ -25,9 +22,7 @@ body {
   padding: 20px;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 /* PAGE 0 – COQUETTE V */
 .v-bg {
@@ -70,9 +65,7 @@ button {
   color: white;
 }
 
-button:hover {
-  background: #ff4f91;
-}
+button:hover { background: #ff4f91; }
 
 /* PHOTOS */
 .photos img {
@@ -83,19 +76,11 @@ button:hover {
   transition: transform 0.3s;
 }
 
-.photos img:hover {
-  transform: scale(1.05);
-}
+.photos img:hover { transform: scale(1.05); }
 
 /* VALENTINE BUTTONS */
-.yes {
-  background: #ff4f91;
-}
-
-.no {
-  background: #999;
-  position: absolute;
-}
+.yes { background: #ff4f91; }
+.no { background: #999; position: absolute; }
 
 /* HEARTS */
 .heart {
@@ -129,9 +114,7 @@ button:hover {
   opacity: 0;
   transform: translateY(60px);
   transition: all 1.8s ease;
-  position: relative;
-  z-index: 2;
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
   display: block;
 }
 
@@ -214,7 +197,7 @@ button:hover {
 
 <!-- PAGE 4 -->
 <div class="page hidden" id="page4">
-  <div class="card" style="position: relative;">
+  <div class="card">
     <h1>One Year of Togetherness 💖</h1>
     <p>One year of laughter, comfort, and choosing each other 🦢</p>
 
@@ -257,6 +240,7 @@ function moveNo() {
 }
 
 function yesClick() {
+  // hearts explosion
   for (let i = 0; i < 30; i++) {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -267,6 +251,7 @@ function yesClick() {
     setTimeout(() => heart.remove(), 2000);
   }
 
+  // move to anniversary page
   setTimeout(() => {
     document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
     document.getElementById("page4").classList.remove("hidden");
@@ -277,14 +262,15 @@ function openLetter() {
   const letter = document.getElementById("letterImg");
   const gif = document.getElementById("finalGif");
 
+  // make letter visible and rise
   letter.classList.remove("hidden");
   letter.classList.add("show-letter");
 
-  // GIF appears AFTER letter finishes rising
+  // make gif appear AFTER letter finishes rising
   setTimeout(() => {
     gif.classList.remove("hidden");
     gif.classList.add("show-gif");
-  }, 1800);
+  }, 2000); // slightly longer for smooth effect
 }
 </script>
 
