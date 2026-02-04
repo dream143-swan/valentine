@@ -1,285 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>For Vikash 🦢</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>For Vikash 🦢</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Georgia", serif;
-      background: url("bg.jpg") center/cover no-repeat fixed;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Georgia", serif;
+}
 
-    .overlay {
-      background: rgba(255, 214, 232, 0.88);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+body {
+  margin: 0;
+  background: #ffd6e8;
+  overflow-x: hidden;
+}
 
-    .card {
-      background: white;
-      border-radius: 22px;
-      padding: 30px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      animation: fadeIn 0.8s ease;
-    }
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
 
-    h1, h2, h3 {
-      margin-top: 0;
-    }
+.hidden {
+  display: none;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 10px 24px;
-      border: none;
-      border-radius: 30px;
-      background: #ff6fae;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+/* BACKGROUND V PAGE */
+.v-bg {
+  background: radial-gradient(circle, #ffd6e8 60%, #f5a6c6);
+}
 
-    button:hover {
-      background: #ff4f99;
-    }
+.v-letter {
+  font-size: 200px;
+  font-weight: bold;
+  color: #000;
+  position: relative;
+}
 
-    input {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      width: 80%;
-      font-size: 16px;
-    }
+.bow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 40px;
+}
 
-    img {
-      width: 100%;
-      border-radius: 16px;
-      margin-top: 15px;
-      cursor: pointer;
-    }
+/* CARD STYLE */
+.card {
+  background: rgba(255, 214, 232, 0.85);
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 500px;
+  color: #333;
+}
 
-    .hidden {
-      display: none;
-    }
+/* BUTTONS */
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  background: #ff7eb3;
+  color: white;
+}
 
-    /* Floating hearts */
-    .heart {
-      position: fixed;
-      bottom: -30px;
-      font-size: 20px;
-      animation: floatUp 6s linear forwards;
-      z-index: 1;
-    }
+button:hover {
+  background: #ff4f91;
+}
 
-    @keyframes floatUp {
-      to {
-        transform: translateY(-110vh);
-        opacity: 0;
-      }
-    }
+/* IMAGES */
+.photos img {
+  width: 150px;
+  border-radius: 15px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+.photos img:hover {
+  transform: scale(1.05);
+}
 
-    /* Tap to view */
-    .photo-wrap {
-      position: relative;
-    }
+/* VALENTINE BUTTONS */
+.yes {
+  background: #ff4f91;
+}
 
-    .photo-wrap span {
-      position: absolute;
-      bottom: 10px;
-      right: 15px;
-      background: rgba(255, 111, 174, 0.9);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 14px;
-    }
+.no {
+  background: #999;
+  position: absolute;
+}
 
-    /* Fullscreen viewer */
-    .viewer {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
+/* HEARTS */
+.heart {
+  position: fixed;
+  color: pink;
+  font-size: 24px;
+  animation: float 2s ease-out forwards;
+}
 
-    .viewer img {
-      max-width: 90%;
-      max-height: 70%;
-      border-radius: 20px;
-    }
-
-    .viewer p {
-      color: white;
-      margin-top: 15px;
-      font-size: 18px;
-      text-align: center;
-    }
-
-    /* Sound gate */
-    #soundGate {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
-  </style>
+@keyframes float {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+}
+</style>
 </head>
 
 <body>
 
-<!-- BACKGROUND MUSIC -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+<audio id="music" src="music.mp3" loop></audio>
 
-<!-- SOUND ENABLE -->
-<div id="soundGate">
-  <p style="font-size:20px;">🎶 Before we begin…</p>
-  <button onclick="enableSound()">Tap to enable sound 💗</button>
-</div>
-
-<!-- PASSWORD PAGE -->
-<div class="overlay" id="page0">
+<!-- PAGE 0 : PASSWORD -->
+<div class="page v-bg" id="page0">
+  <div class="v-letter">
+    V
+    <div class="bow">🎀</div>
+  </div>
   <div class="card">
-    <h2>🔐 A Little Secret</h2>
-    <p>Only for someone special 🦢</p>
-    <input type="password" id="password" placeholder="magic word">
+    <p>Enter the magic word 💗</p>
+    <input id="password" type="password" placeholder="magic word">
     <br>
-    <button onclick="unlock()">Unlock 💗</button>
+    <button onclick="unlock()">Unlock 💞</button>
   </div>
 </div>
 
 <!-- PAGE 1 -->
-<div class="overlay hidden" id="page1">
+<div class="page hidden" id="page1">
   <div class="card">
-    <h2>Dear Vikash 🦢</h2>
+    <h1>Dear Vikash 🦢</h1>
     <p>
-      Somewhere between smiles, silences, and small moments,
-      you became very important to me 💗  
-      Life feels gentler when you’re in it.
+      This isn’t just a page.  
+      It’s a little piece of what you make me feel.
     </p>
-    <button onclick="next(1)">Next 💞</button>
+    <button onclick="nextPage(2)">Next →</button>
   </div>
 </div>
 
 <!-- PAGE 2 -->
-<div class="overlay hidden" id="page2">
+<div class="page hidden" id="page2">
   <div class="card">
-    <h3>This is us 💖</h3>
+    <h2>This is us 💗</h2>
+    <p>(tap the photos)</p>
 
-    <div class="photo-wrap"
-      onclick="openViewer('photo1.jpg','This moment stays with me longer than you know 🥺💗')">
-      <img src="photo1.jpg">
-      <span>Tap to view 💗</span>
+    <div class="photos">
+      <img src="photo1.jpg" onclick="showMsg(1)">
+      <img src="photo2.jpg" onclick="showMsg(2)">
     </div>
 
-    <div class="photo-wrap"
-      onclick="openViewer('photo2.jpg','Every picture with you feels like a promise 🦢✨')">
-      <img src="photo2.jpg">
-      <span>Tap to view 💗</span>
-    </div>
+    <p id="photoMsg"></p>
 
-    <button onclick="next(2)">Next 🦢</button>
+    <button onclick="nextPage(3)">Next →</button>
   </div>
 </div>
 
 <!-- PAGE 3 -->
-<div class="overlay hidden" id="page3">
+<div class="page hidden" id="page3">
   <div class="card">
     <h2>So I have one question…</h2>
     <h1>Will you be my Valentine? 💞</h1>
 
-    <button onclick="yes()">YES 💖</button>
-    <button id="noBtn" onmouseover="runAway()">NO 😆</button>
+    <button class="yes" onclick="yesClick()">YES 💖</button>
+    <button class="no" id="noBtn" onmouseover="moveNo()">NO 😆</button>
   </div>
 </div>
 
 <script>
-  function enableSound() {
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.4;
-    music.play().catch(() => {});
-    document.getElementById("soundGate").style.display = "none";
-  }
+function unlock() {
+  const pass = document.getElementById("password").value;
+  if (pass === "my🦢143") {
+    document.getElementById("page0").classList.add("hidden");
+    document.getElementById("page1").classList.remove("hidden");
 
-  function unlock() {
-    const pass = document.getElementById("password").value;
-    if (pass === "my🦢143") {
-      document.getElementById("page0").classList.add("hidden");
-      document.getElementById("page1").classList.remove("hidden");
-    } else {
-      alert("That’s not the magic word 💔");
-    }
+    const music = document.getElementById("music");
+    music.play();
+  } else {
+    alert("That’s not the magic word 💔");
   }
+}
 
-  function next(n) {
-    document.getElementById("page" + n).classList.add("hidden");
-    document.getElementById("page" + (n + 1)).classList.remove("hidden");
-  }
+function nextPage(n) {
+  document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+  document.getElementById("page" + n).classList.remove("hidden");
+}
 
-  function openViewer(src, text) {
-    const viewer = document.createElement("div");
-    viewer.className = "viewer";
-    viewer.innerHTML = `
-      <img src="${src}">
-      <p>${text}</p>
-      <p style="font-size:14px;opacity:0.7">(tap anywhere to close)</p>
-    `;
-    viewer.onclick = () => viewer.remove();
-    document.body.appendChild(viewer);
-  }
+function showMsg(n) {
+  const msg = document.getElementById("photoMsg");
+  msg.innerHTML =
+    n === 1
+      ? "This moment stays with me longer than you know 🥺💗"
+      : "Every picture with you feels like a promise 🦢✨";
+}
 
-  function runAway() {
-    const btn = document.getElementById("noBtn");
-    btn.style.position = "absolute";
-    btn.style.left = Math.random() * 80 + "vw";
-    btn.style.top = Math.random() * 80 + "vh";
-  }
+function moveNo() {
+  const btn = document.getElementById("noBtn");
+  btn.style.left = Math.random() * 80 + "%";
+  btn.style.top = Math.random() * 80 + "%";
+}
 
-  function yes() {
-    for (let i = 0; i < 35; i++) {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }
-    alert("You just made my heart the happiest 🦢💞");
-  }
-
-  setInterval(() => {
+function yesClick() {
+  for (let i = 0; i < 30; i++) {
     const heart = document.createElement("div");
     heart.className = "heart";
-    heart.innerHTML = "💗";
+    heart.innerText = "💗";
     heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "100vh";
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 900);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 2000);
+  }
+}
 </script>
 
 </body>
