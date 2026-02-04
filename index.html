@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For Vikash 🦢</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #ffd6e8, #fff);
+      text-align: center;
+      color: #444;
+      overflow-x: hidden;
+    }
+    .container {
+      padding: 40px 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: none;
+      background: #ff5fa2;
+      color: white;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #ff3d8b;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin: 25px auto;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    img {
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 15px;
+    }
+    .heart {
+      position: fixed;
+      color: pink;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      bottom: -50px;
+    }
+    @keyframes float {
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="lock">
+  <h1>Hey 🦢</h1>
+  <p>Enter the magic word 💗</p>
+  <input type="password" id="password" placeholder="magic word">
+  <br>
+  <button onclick="unlock()">Unlock</button>
+</div>
+
+<div class="container hidden" id="content">
+  <div class="card">
+    <h2>Dear Vikash 🦢</h2>
+    <p>
+      From the moment you walked into my life, things felt softer… warmer… brighter.
+      You make the ordinary feel special, and the quiet moments feel full.
+    </p>
+  </div>
+
+  <div class="card">
+    <p>
+      I don’t always say it out loud, but you mean more to me than words can hold.
+      You’re my comfort, my smile, my favorite thought 💕
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>This is us 💖</h3>
+    <p>(Photos coming soon…)</p>
+  </div>
+
+  <div class="card">
+    <h2>So I have one question…</h2>
+    <h1>Will you be my Valentine? 💞</h1>
+  </div>
+</div>
+
+<script>
+  function unlock() {
+    const pass = document.getElementById("password").value;
+    if (pass === "my🦢143") {
+      document.getElementById("lock").classList.add("hidden");
+      document.getElementById("content").classList.remove("hidden");
+    } else {
+      alert("That’s not the magic word 💔");
+    }
+  }
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+</script>
+
+</body>
+</html>
