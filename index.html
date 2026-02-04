@@ -4,103 +4,143 @@
   <meta charset="UTF-8">
   <title>For Vikash 🦢</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #ffd6e8, #fff);
-      text-align: center;
-      color: #444;
+      font-family: "Georgia", serif;
+      background: url("bg.jpg") center/cover no-repeat fixed;
+      min-height: 100vh;
       overflow-x: hidden;
+      color: #333;
     }
-    .container {
-      padding: 40px 20px;
+
+    .overlay {
+      background: rgba(255, 214, 232, 0.85);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 30px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      animation: fadeIn 0.8s ease;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 30px;
+      background: #ff6fae;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ff4f99;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 80%;
+      font-size: 16px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
     .hidden {
       display: none;
     }
-    input {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 20px;
-      border: none;
-      background: #ff5fa2;
-      color: white;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-    button:hover {
-      background: #ff3d8b;
-    }
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 25px;
-      margin: 25px auto;
-      max-width: 400px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-    img {
-      width: 100%;
-      border-radius: 20px;
-      margin-top: 15px;
-    }
+
     .heart {
       position: fixed;
-      color: pink;
+      bottom: -30px;
       font-size: 20px;
-      animation: float 6s linear infinite;
-      bottom: -50px;
+      animation: floatUp 6s linear forwards;
     }
-    @keyframes float {
+
+    @keyframes floatUp {
       to {
         transform: translateY(-110vh);
         opacity: 0;
       }
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 
-<div class="container" id="lock">
-  <h1>Hey 🦢</h1>
-  <p>Enter the magic word 💗</p>
-  <input type="password" id="password" placeholder="magic word">
-  <br>
-  <button onclick="unlock()">Unlock</button>
+<!-- PASSWORD PAGE -->
+<div class="overlay" id="page0">
+  <div class="card">
+    <h2>🔐 A Little Secret</h2>
+    <p>Only for someone special 🦢</p>
+    <input type="password" id="password" placeholder="magic word">
+    <br>
+    <button onclick="unlock()">Unlock 💗</button>
+  </div>
 </div>
 
-<div class="container hidden" id="content">
+<!-- PAGE 1 -->
+<div class="overlay hidden" id="page1">
   <div class="card">
     <h2>Dear Vikash 🦢</h2>
     <p>
-      From the moment you walked into my life, things felt softer… warmer… brighter.
-      You make the ordinary feel special, and the quiet moments feel full.
+      Somewhere between smiles, silences, and small moments,
+      you became very important to me 💗  
+      Life feels gentler when you’re in it.
     </p>
+    <button onclick="next(1)">Next 💞</button>
   </div>
-
-  <div class="card">
-    <p>
-      I don’t always say it out loud, but you mean more to me than words can hold.
-      You’re my comfort, my smile, my favorite thought 💕
-    </p>
-  </div>
-
-  <div class="card">
-  <h3>This is us 💖</h3>
-  <img src="photo1.jpg">
-  <img src="photo2.jpg">
 </div>
 
+<!-- PAGE 2 -->
+<div class="overlay hidden" id="page2">
+  <div class="card">
+    <h3>This is us 💖</h3>
+
+    <img src="photo1.jpg" onclick="showMsg(1)">
+    <img src="photo2.jpg" onclick="showMsg(2)">
+
+    <p id="photoMsg" style="margin-top:15px;"></p>
+
+    <button onclick="next(2)">Next 🦢</button>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="overlay hidden" id="page3">
   <div class="card">
     <h2>So I have one question…</h2>
     <h1>Will you be my Valentine? 💞</h1>
+
+    <button onclick="yes()">YES 💖</button>
+    <button id="noBtn" onmouseover="runAway()">NO 😆</button>
   </div>
 </div>
 
@@ -108,11 +148,43 @@
   function unlock() {
     const pass = document.getElementById("password").value;
     if (pass === "my🦢143") {
-      document.getElementById("lock").classList.add("hidden");
-      document.getElementById("content").classList.remove("hidden");
+      document.getElementById("page0").classList.add("hidden");
+      document.getElementById("page1").classList.remove("hidden");
     } else {
       alert("That’s not the magic word 💔");
     }
+  }
+
+  function next(n) {
+    document.getElementById("page" + n).classList.add("hidden");
+    document.getElementById("page" + (n + 1)).classList.remove("hidden");
+  }
+
+  function showMsg(n) {
+    const msg = document.getElementById("photoMsg");
+    msg.innerHTML =
+      n === 1
+        ? "This moment stays with me longer than you know 🥺💗"
+        : "Every picture with you feels like a promise 🦢✨";
+  }
+
+  function runAway() {
+    const btn = document.getElementById("noBtn");
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * 80 + "vw";
+    btn.style.top = Math.random() * 80 + "vh";
+  }
+
+  function yes() {
+    for (let i = 0; i < 35; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    alert("You just made my heart the happiest 🦢💞");
   }
 
   setInterval(() => {
@@ -122,7 +194,7 @@
     heart.style.left = Math.random() * 100 + "vw";
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
-  }, 500);
+  }, 800);
 </script>
 
 </body>
