@@ -1,1 +1,257 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>For Vikash 🦢</title> <style> * { box-sizing: border-box; font-family: "Georgia", serif; } body { margin: 0; background: #ffd6e8; overflow-x: hidden; } .page { min-height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 20px; } .hidden { display: none; } /* PAGE 0 – COQUETTE V */ .v-bg { background: radial-gradient(circle, #ffd6e8 60%, #f3a6c8); } .v-letter { font-size: 220px; font-weight: bold; color: black; position: relative; } .bow { position: absolute; top: 20px; left: 20px; font-size: 40px; } /* CARD */ .card { background: rgba(255, 214, 232, 0.85); padding: 30px; border-radius: 20px; max-width: 500px; color: #333; position: relative; /* for letter/gif positioning */ } /* BUTTONS */ button { margin-top: 20px; padding: 12px 28px; border-radius: 30px; border: none; font-size: 16px; cursor: pointer; background: #ff7eb3; color: white; } button:hover { background: #ff4f91; } /* PHOTOS */ .photos img { width: 150px; border-radius: 15px; margin: 10px; cursor: pointer; transition: transform 0.3s; } .photos img:hover { transform: scale(1.05); } /* VALENTINE BUTTONS */ .yes { background: #ff4f91; } .no { background: #999; position: absolute; } /* HEARTS */ .heart { position: fixed; font-size: 24px; animation: float 2s ease-out forwards; } @keyframes float { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-200px); } } /* LETTER BUTTON */ .letter-btn { font-size: 32px; background: none; border: none; cursor: pointer; animation: bounce 1.5s infinite; } @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } } /* LETTER IMAGE */ .letter { width: 220px; opacity: 0; transform: translateY(60px); transition: all 1.8s ease; position: relative; z-index: 2; margin: 0 auto; display: block; } /* GIF at bottom of card */ .gif { width: 260px; opacity: 0; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); transition: opacity 2s ease; z-index: 1; } .show-letter { opacity: 1; transform: translateY(0); } .show-gif { opacity: 1; } </style> </head> <body> <audio id="music" src="music.mp3" loop></audio> <!-- PAGE 0 : PASSWORD --> <div class="page v-bg" id="page0"> <div> <div class="v-letter">V<div class="bow">🎀</div></div> <div class="card"> <p>Enter the magic word 💗</p> <input id="password" type="password" placeholder="magic word"> <br> <button onclick="unlock()">Unlock 💞</button> </div> </div> </div> <!-- PAGE 1 --> <div class="page hidden" id="page1"> <div class="card"> <h1>Dear Vikash 🦢</h1> <p>This isn’t just a page.<br>It’s a little piece of what you make me feel.</p> <button onclick="nextPage(2)">Next →</button> </div> </div> <!-- PAGE 2 --> <div class="page hidden" id="page2"> <div class="card"> <h2>This is us 💗</h2> <p>(tap the photos)</p> <div class="photos"> <img src="photo1.jpg" onclick="showMsg(1)"> <img src="photo2.jpg" onclick="showMsg(2)"> </div> <p id="photoMsg"></p> <button onclick="nextPage(3)">Next →</button> </div> </div> <!-- PAGE 3 --> <div class="page hidden" id="page3"> <div class="card"> <h2>So I have one question…</h2> <h1>Will you be my Valentine? 💞</h1> <button class="yes" onclick="yesClick()">YES 💖</button> <button class="no" id="noBtn" onmouseover="moveNo()">NO 😆</button> </div> </div> <!-- PAGE 4 --> <div class="page hidden" id="page4"> <div class="card" style="position: relative;"> <h1>One Year of Togetherness 💖</h1> <p>One year of laughter, comfort, and choosing each other 🦢</p> <button class="letter-btn" onclick="openLetter()">✉️</button> <img id="letterImg" src="Letter.jpg" class="letter hidden"> <img id="finalGif" src="anniversary.gif" class="gif hidden"> </div> </div> <script> function unlock() { const pass = document.getElementById("password").value; if (pass === "my🦢143") { document.getElementById("page0").classList.add("hidden"); document.getElementById("page1").classList.remove("hidden"); document.getElementById("music").play(); } else { alert("That’s not the magic word 💔"); } } function nextPage(n) { document.querySelectorAll(".page").forEach(p => p.classList.add("hidden")); document.getElementById("page" + n).classList.remove("hidden"); } function showMsg(n) { const msg = document.getElementById("photoMsg"); msg.innerHTML = n === 1 ? "This moment stays with me longer than you know 🥺💗" : "Every picture with you feels like a promise 🦢✨"; } function moveNo() { const btn = document.getElementById("noBtn"); btn.style.left = Math.random() * 80 + "%"; btn.style.top = Math.random() * 80 + "%"; } function yesClick() { for (let i = 0; i < 30; i++) { const heart = document.createElement("div"); heart.className = "heart"; heart.innerText = "💗"; heart.style.left = Math.random() * 100 + "vw"; heart.style.top = "100vh"; document.body.appendChild(heart); setTimeout(() => heart.remove(), 2000); } setTimeout(() => { document.querySelectorAll(".page").forEach(p => p.classList.add("hidden")); document.getElementById("page4").classList.remove("hidden"); }, 1000); } function openLetter() { const letter = document.getElementById("letterImg"); const gif = document.getElementById("finalGif"); letter.classList.remove("hidden"); letter.classList.add("show-letter"); // GIF appears AFTER letter finishes rising setTimeout(() => { gif.classList.remove("hidden"); gif.classList.add("show-gif"); }, 1800); } </script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For Vikash 🦢</title>
+  <style>
+    /* GLOBAL STYLES */
+    * {
+      box-sizing: border-box;
+      font-family: "Georgia", serif;
+    }
+    body {
+      margin: 0;
+      background: #ffd6e8;
+      overflow-x: hidden;
+    }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .hidden { display: none; }
+
+    /* PAGE 0 – V LETTER */
+    .v-bg {
+      background: radial-gradient(circle, #ffd6e8 60%, #f3a6c8);
+    }
+    .v-letter {
+      font-size: 220px;
+      font-weight: bold;
+      color: black;
+      position: relative;
+    }
+    .bow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 40px;
+    }
+
+    /* CARD STYLES */
+    .card {
+      background: rgba(255, 214, 232, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      color: #333;
+      position: relative;
+    }
+
+    /* BUTTONS */
+    button {
+      margin-top: 20px;
+      padding: 12px 28px;
+      border-radius: 30px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      background: #ff7eb3;
+      color: white;
+      transition: background 0.3s;
+    }
+    button:hover { background: #ff4f91; }
+
+    /* PHOTO STYLES */
+    .photos img {
+      width: 150px;
+      border-radius: 15px;
+      margin: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .photos img:hover { transform: scale(1.05); }
+
+    /* VALENTINE BUTTONS */
+    .yes { background: #ff4f91; }
+    .no { background: #999; position: absolute; }
+
+    /* FLOATING HEARTS */
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      animation: float 2s ease-out forwards;
+    }
+    @keyframes float {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-200px); }
+    }
+
+    /* LETTER BUTTON */
+    .letter-btn {
+      font-size: 32px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* LETTER IMAGE */
+    .letter {
+      width: 220px;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1.8s ease;
+      position: relative;
+      z-index: 2;
+      margin: 20px auto 0 auto;
+      display: block;
+    }
+    .show-letter {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* GIF AT BOTTOM */
+    .gif {
+      width: 260px;
+      opacity: 0;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: opacity 2s ease;
+      z-index: 1;
+    }
+    .show-gif { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <audio id="music" src="music.mp3" loop></audio>
+
+  <!-- PAGE 0: PASSWORD -->
+  <div class="page v-bg" id="page0">
+    <div>
+      <div class="v-letter">V<div class="bow">🎀</div></div>
+      <div class="card">
+        <p>Enter the magic word 💗</p>
+        <input id="password" type="password" placeholder="magic word">
+        <br>
+        <button onclick="unlock()">Unlock 💞</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 1 -->
+  <div class="page hidden" id="page1">
+    <div class="card">
+      <h1>Dear Vikash 🦢</h1>
+      <p>This isn’t just a page.<br>It’s a little piece of what you make me feel.</p>
+      <button onclick="nextPage(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 2: PHOTOS -->
+  <div class="page hidden" id="page2">
+    <div class="card">
+      <h2>This is us 💗</h2>
+      <p>(tap the photos)</p>
+      <div class="photos">
+        <img src="photo1.jpg" onclick="showMsg(1)">
+        <img src="photo2.jpg" onclick="showMsg(2)">
+      </div>
+      <p id="photoMsg"></p>
+      <button onclick="nextPage(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3: VALENTINE -->
+  <div class="page hidden" id="page3">
+    <div class="card">
+      <h2>So I have one question…</h2>
+      <h1>Will you be my Valentine? 💞</h1>
+      <button class="yes" onclick="yesClick()">YES 💖</button>
+      <button class="no" id="noBtn" onmouseover="moveNo()">NO 😆</button>
+    </div>
+  </div>
+
+  <!-- PAGE 4: LETTER + GIF -->
+  <div class="page hidden" id="page4">
+    <div class="card">
+      <h1>One Year of Togetherness 💖</h1>
+      <p>One year of laughter, comfort, and choosing each other 🦢</p>
+      <button class="letter-btn" onclick="openLetter()">✉️</button>
+      <img id="letterImg" src="Letter.jpg" class="letter hidden">
+      <img id="finalGif" src="anniversary.gif" class="gif hidden">
+    </div>
+  </div>
+
+  <script>
+    function unlock() {
+      const pass = document.getElementById("password").value;
+      if (pass === "my🦢143") {
+        document.getElementById("page0").classList.add("hidden");
+        document.getElementById("page1").classList.remove("hidden");
+        document.getElementById("music").play();
+      } else {
+        alert("That’s not the magic word 💔");
+      }
+    }
+
+    function nextPage(n) {
+      document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+      document.getElementById("page" + n).classList.remove("hidden");
+    }
+
+    function showMsg(n) {
+      const msg = document.getElementById("photoMsg");
+      msg.innerHTML = n === 1 
+        ? "This moment stays with me longer than you know 🥺💗"
+        : "Every picture with you feels like a promise 🦢✨";
+    }
+
+    function moveNo() {
+      const btn = document.getElementById("noBtn");
+      btn.style.left = Math.random() * 80 + "%";
+      btn.style.top = Math.random() * 80 + "%";
+    }
+
+    function yesClick() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "💗";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+      }
+      setTimeout(() => {
+        document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+        document.getElementById("page4").classList.remove("hidden");
+      }, 1000);
+    }
+
+    function openLetter() {
+      const letter = document.getElementById("letterImg");
+      const gif = document.getElementById("finalGif");
+      letter.classList.remove("hidden");
+      letter.classList.add("show-letter");
+
+      // Show GIF after letter animation
+      setTimeout(() => {
+        gif.classList.remove("hidden");
+        gif.classList.add("show-gif");
+      }, 1800);
+    }
+  </script>
+</body>
+</html>
