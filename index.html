@@ -146,14 +146,18 @@
 
 <script>
   function unlock() {
-    const pass = document.getElementById("password").value;
-    if (pass === "my🦢143") {
-      document.getElementById("page0").classList.add("hidden");
-      document.getElementById("page1").classList.remove("hidden");
-    } else {
-      alert("That’s not the magic word 💔");
-    }
+  const pass = document.getElementById("password").value;
+  if (pass === "my🦢143") {
+    document.getElementById("page0").classList.add("hidden");
+    document.getElementById("page1").classList.remove("hidden");
+
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.4;
+    music.play();
+  } else {
+    alert("That’s not the magic word 💔");
   }
+}
 
   function next(n) {
     document.getElementById("page" + n).classList.add("hidden");
