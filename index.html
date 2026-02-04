@@ -5,7 +5,10 @@
 <title>For Vikash 🦢</title>
 
 <style>
-* { box-sizing: border-box; font-family: "Georgia", serif; }
+* {
+  box-sizing: border-box;
+  font-family: "Georgia", serif;
+}
 
 body {
   margin: 0;
@@ -22,7 +25,9 @@ body {
   padding: 20px;
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 
 /* PAGE 0 – COQUETTE V */
 .v-bg {
@@ -65,7 +70,9 @@ button {
   color: white;
 }
 
-button:hover { background: #ff4f91; }
+button:hover {
+  background: #ff4f91;
+}
 
 /* PHOTOS */
 .photos img {
@@ -76,11 +83,19 @@ button:hover { background: #ff4f91; }
   transition: transform 0.3s;
 }
 
-.photos img:hover { transform: scale(1.05); }
+.photos img:hover {
+  transform: scale(1.05);
+}
 
 /* VALENTINE BUTTONS */
-.yes { background: #ff4f91; }
-.no { background: #999; position: absolute; }
+.yes {
+  background: #ff4f91;
+}
+
+.no {
+  background: #999;
+  position: absolute;
+}
 
 /* HEARTS */
 .heart {
@@ -114,8 +129,10 @@ button:hover { background: #ff4f91; }
   opacity: 0;
   transform: translateY(60px);
   transition: all 1.8s ease;
+  display: none; /* initially hidden */
   margin: 20px auto 0 auto;
-  display: block;
+  position: relative;
+  z-index: 3;
 }
 
 /* GIF at bottom of card */
@@ -127,10 +144,11 @@ button:hover { background: #ff4f91; }
   left: 50%;
   transform: translateX(-50%);
   transition: opacity 2s ease;
-  z-index: 1;
+  z-index: 2;
 }
 
 .show-letter {
+  display: block;
   opacity: 1;
   transform: translateY(0);
 }
@@ -203,8 +221,8 @@ button:hover { background: #ff4f91; }
 
     <button class="letter-btn" onclick="openLetter()">✉️</button>
 
-    <img id="letterImg" src="Letter.jpg" class="letter hidden">
-    <img id="finalGif" src="anniversary.gif" class="gif hidden">
+    <img id="letterImg" src="Letter.jpg" class="letter">
+    <img id="finalGif" src="anniversary.gif" class="gif">
   </div>
 </div>
 
@@ -240,7 +258,6 @@ function moveNo() {
 }
 
 function yesClick() {
-  // hearts explosion
   for (let i = 0; i < 30; i++) {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -251,7 +268,6 @@ function yesClick() {
     setTimeout(() => heart.remove(), 2000);
   }
 
-  // move to anniversary page
   setTimeout(() => {
     document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
     document.getElementById("page4").classList.remove("hidden");
@@ -262,15 +278,11 @@ function openLetter() {
   const letter = document.getElementById("letterImg");
   const gif = document.getElementById("finalGif");
 
-  // make letter visible and rise
-  letter.classList.remove("hidden");
   letter.classList.add("show-letter");
 
-  // make gif appear AFTER letter finishes rising
   setTimeout(() => {
-    gif.classList.remove("hidden");
     gif.classList.add("show-gif");
-  }, 2000); // slightly longer for smooth effect
+  }, 1800);
 }
 </script>
 
